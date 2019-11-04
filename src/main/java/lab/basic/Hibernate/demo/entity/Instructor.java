@@ -102,7 +102,7 @@ public class Instructor {
 		}
 		course.add(temCourse);
 
-		temCourse.setInstructorId(this);
+		temCourse.setInstructor(this);
 	}
 
 	@Override
