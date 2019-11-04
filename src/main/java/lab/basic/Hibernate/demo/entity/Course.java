@@ -1,10 +1,13 @@
 package lab.basic.Hibernate.demo.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,14 +22,15 @@ public class Course {
 	@Column(name = "title")
 	private String title;
 
-	@Column(name = "instructor_id")
-	private String instructorId;
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "instructor_id")
+	private Instructor instructorId;
 
 	public Course() {
 
 	}
 
-	public Course(String title, String instructorId) {
+	public Course(String title, Instructor instructorId) {
 		this.title = title;
 		this.instructorId = instructorId;
 	}
@@ -47,12 +51,17 @@ public class Course {
 		this.title = title;
 	}
 
-	public String getInstructorId() {
+	public Instructor getInstructorId() {
 		return instructorId;
 	}
 
-	public void setInstructorId(String instructorId) {
+	public void setInstructorId(Instructor instructorId) {
 		this.instructorId = instructorId;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [id=" + id + ", title=" + title + "]";
 	}
 
 }
